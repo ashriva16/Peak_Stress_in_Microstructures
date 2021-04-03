@@ -23,33 +23,33 @@ except ImportError:
 class Logger(object):
     def __init__(self, log_dir):
         """Create a summary writer logging to log_dir."""
-        self.writer = tf.summary.FileWriter(log_dir)
+        self.writer = tf.compat.v1.summary.FileWriter(log_dir)
 
     def close(self):
         self.writer.close()
 
     def scalar_summary(self, tag, value, step):
         """Log a scalar variable."""
-        summary = tf.Summary(
-            value=[tf.Summary.Value(tag=tag, simple_value=value)])
+        summary = tf.compat.v1.Summary(
+            value=[tf.compat.v1.Summary.Value(tag=tag, simple_value=value)])
         self.writer.add_summary(summary, step)
         self.writer.flush()
 
     def layer_summary(self, tag, value, step):
 
-        tag_ = tag+'/min'
+        tag_ = tag + '/min'
         val = torch.min(value).item()
         self.scalar_summary(tag_, val, step + 1)
 
-        tag_ = tag+'/max'
+        tag_ = tag + '/max'
         val = torch.max(value).item()
         self.scalar_summary(tag_, val, step + 1)
 
-        tag_ = tag+'/mean'
+        tag_ = tag + '/mean'
         val = torch.mean(value).item()
         self.scalar_summary(tag_, val, step + 1)
 
-        tag_ = tag+'/std'
+        tag_ = tag + '/std'
         val = torch.std(value).item()
         self.scalar_summary(tag_, val, step + 1)
 
@@ -77,7 +77,8 @@ class Logger(object):
             hist.bucket.append(c)
 
         # Create and write Summary
-        summary = tf.Summary(value=[tf.Summary.Value(tag=tag, histo=hist)])
+        summary = tf.compat.v1.Summary(
+            value=[tf.compat.v1.Summary.Value(tag=tag, histo=hist)])
         self.writer.add_summary(summary, step)
         self.writer.flush()
 
@@ -94,15 +95,15 @@ class Logger(object):
             scipy.misc.toimage(img).save(s, format="png")
 
             # Create an Image object
-            img_sum = tf.Summary.Image(encoded_image_string=s.getvalue(),
-                                       height=img.shape[0],
-                                       width=img.shape[1])
+            img_sum = tf.compat.v1.Summary.Image(encoded_image_string=s.getvalue(),
+                                                 height=img.shape[0],
+                                                 width=img.shape[1])
             # Create a Summary value
             img_summaries.append(
-                tf.Summary.Value(tag='%s/%d' % (tag, i), image=img_sum))
+                tf.compat.v1.Summary.Value(tag='%s/%d' % (tag, i), image=img_sum))
 
         # Create and write Summary
-        summary = tf.Summary(value=img_summaries)
+        summary = tf.compat.v1.Summary(value=img_summaries)
         self.writer.add_summary(summary, step)
         self.writer.flush()
 
@@ -113,12 +114,12 @@ class Logger(object):
         img = Image.open(plot_buf)
         img_ar = np.array(img)
 
-        img_summary = tf.Summary.Image(
+        img_summary = tf.compat.v1.Summary.Image(
             encoded_image_string=plot_buf.getvalue(),
             height=img_ar.shape[0],
             width=img_ar.shape[1])
 
-        summary = tf.Summary()
+        summary = tf.compat.v1.Summary()
         summary.value.add(tag=tag, image=img_summary)
         self.writer.add_summary(summary, global_step=global_step)
         self.writer.flush()
@@ -127,11 +128,11 @@ class Logger(object):
         s = io.BytesIO()
         Image.fromarray(img).save(s, format='png')
 
-        img_summary = tf.Summary.Image(encoded_image_string=s.getvalue(),
-                                       height=img.shape[0],
-                                       width=img.shape[1])
+        img_summary = tf.compat.v1.Summary.Image(encoded_image_string=s.getvalue(),
+                                                 height=img.shape[0],
+                                                 width=img.shape[1])
 
-        summary = tf.Summary()
+        summary = tf.compat.v1.Summary()
         summary.value.add(tag=tag, image=img_summary)
         self.writer.add_summary(summary, global_step=global_step)
         self.writer.flush()
@@ -161,12 +162,12 @@ class Logger(object):
         img = Image.open(plot_buf)
         img_ar = np.array(img)
 
-        img_summary = tf.Summary.Image(
+        img_summary = tf.compat.v1.Summary.Image(
             encoded_image_string=plot_buf.getvalue(),
             height=img_ar.shape[0],
             width=img_ar.shape[1])
 
-        summary = tf.Summary()
+        summary = tf.compat.v1.Summary()
         summary.value.add(tag=tag, image=img_summary)
         self.writer.add_summary(summary)
         self.writer.flush()
