@@ -1,0 +1,12 @@
+
+results/
+*.vscode
+*.th
+*/__pycache__/
+*.pyc
+*.ipynb_checkpoints
+*.eps
+*.out
+*.png
+*.log
+.~*
