@@ -18,11 +18,7 @@ def scale01(M):
             M_ = M[i, :, :, j]
             MIN = np.min(M_)
             MAX = np.max(M_)
-            if (MAX == MIN):
-                New_M[i, :, :, j] = 0.0 * M_
-            else:
-                New_M[i, :, :, j] = (M_ - MIN) / (MAX - MIN)
-
+            New_M[i, :, :, j] = 0.0 * M_ if (MAX == MIN) else (M_ - MIN) / (MAX - MIN)
     return New_M
 
 
@@ -34,9 +30,5 @@ def scale01_(M):
             M_ = M[i, :, :, j]
             MIN = np.min(M_)
             MAX = np.max(M_)
-            if (MAX == MIN):
-                New_M[i, :, :, j] = 1.0 * M_
-            else:
-                New_M[i, :, :, j] = (M_ - MIN) / (MAX - MIN)
-
+            New_M[i, :, :, j] = 1.0 * M_ if (MAX == MIN) else (M_ - MIN) / (MAX - MIN)
     return New_M
