@@ -99,8 +99,8 @@ class Trainer():
                                                  Y.detach()).item()
                 self.model.train()
 
-        if(epoch % self.val_calc_epoch == 0):
-            train_loss = train_loss / len(self.train_loader)
+        if (epoch % self.val_calc_epoch == 0):
+            train_loss /= len(self.train_loader)
             self.train_loss_arr.append(train_loss)
             self.train_epoch.append(epoch)
 
@@ -119,7 +119,7 @@ class Trainer():
                 val_loss += self.criterion(pred.detach(),
                                            Y.detach()).item()
 
-        val_loss = val_loss / len(self.val_loader)
+        val_loss /= len(self.val_loader)
         self.val_loss_arr.append(val_loss)
         self.val_epoch.append(epoch)
 
