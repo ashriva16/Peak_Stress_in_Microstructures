@@ -19,15 +19,6 @@
 This project presents a deep learning approach to predict peak-stress clusters in heterogeneous polycrystalline materials. Unlike prior work that focused on overall stress fields, this method targets localized peak-stress regions critical to failure. Using a convolutional encoder–decoder network trained on synthetic microstructures and linear elasticity simulations, the model predicts stress fields and identifies peak-stress clusters. Evaluation using cosine similarity and geometric comparisons shows high accuracy, especially for higher normalized stress values.
 
 ![Highlight](highlight.png)
-
-### ✅ Key Features
-
-- Rapid identification of optimal deposition parameters
-- Improved consistency and reproducibility of thin film properties
-- Reduced experimental effort
-
-Our results confirm that Bayesian optimization is a powerful tool for thin film process development, delivering high-performance films with controlled stress and resistance characteristics.
-
 ---
 
 ## 🧱 Project Structure
